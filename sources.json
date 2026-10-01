@@ -1,0 +1,27 @@
+{
+  "settings": {
+    "max_age_days": 7,
+    "max_notifications_per_run": 25,
+    "news_md_items": 150
+  },
+  "sources": [
+    {"name": "OpenAI", "url": "https://openai.com/news/rss.xml"},
+    {"name": "OpenAI Developer", "url": "https://raw.githubusercontent.com/Olshansk/rss-feeds/main/feeds/feed_openai_developer.xml"},
+    {"name": "Anthropic", "url": "https://raw.githubusercontent.com/Olshansk/rss-feeds/main/feeds/feed_anthropic_news.xml"},
+    {"name": "Anthropic Research", "url": "https://raw.githubusercontent.com/Olshansk/rss-feeds/main/feeds/feed_anthropic_research.xml"},
+    {"name": "Claude Blog", "url": "https://raw.githubusercontent.com/Olshansk/rss-feeds/main/feeds/feed_claude.xml"},
+    {"name": "Google DeepMind", "url": "https://deepmind.google/blog/rss.xml"},
+    {"name": "Google AI", "url": "https://blog.google/technology/ai/rss/"},
+    {"name": "Meta AI", "url": "https://raw.githubusercontent.com/Olshansk/rss-feeds/main/feeds/feed_meta_ai.xml"},
+    {"name": "Microsoft AI", "url": "https://blogs.microsoft.com/ai/feed/"},
+    {"name": "Mistral AI", "url": "https://raw.githubusercontent.com/Olshansk/rss-feeds/main/feeds/feed_mistral.xml"},
+    {"name": "xAI", "url": "https://raw.githubusercontent.com/Olshansk/rss-feeds/main/feeds/feed_xainews.xml"},
+    {"name": "NVIDIA", "url": "https://blogs.nvidia.com/feed/"},
+    {"name": "Hugging Face", "url": "https://huggingface.co/blog/feed.xml"},
+    {"name": "Perplexity", "url": "https://raw.githubusercontent.com/Olshansk/rss-feeds/main/feeds/feed_perplexity_hub.xml"},
+    {"name": "Cohere", "url": "https://raw.githubusercontent.com/Olshansk/rss-feeds/main/feeds/feed_cohere.xml"},
+    {"name": "Apple Machine Learning", "url": "https://machinelearning.apple.com/rss.xml"},
+    {"name": "Claude Code Changelog", "url": "https://code.claude.com/docs/en/changelog/rss.xml", "enabled": false},
+    {"name": "Google News: DeepSeek", "url": "https://news.google.com/rss/search?q=DeepSeek+KI&hl=de&gl=DE&ceid=DE:de", "enabled": false}
+  ]
+}

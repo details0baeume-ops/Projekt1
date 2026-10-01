@@ -1,0 +1,60 @@
+name: KI-News-Tracker
+
+on:
+  schedule:
+    - cron: "*/15 * * * *" # alle 15 Minuten (GitHub kann sich etwas verspäten)
+  workflow_dispatch:
+    inputs:
+      test:
+        description: "Nur Testnachricht senden"
+        type: boolean
+        default: false
+
+permissions:
+  contents: write
+
+concurrency:
+  group: ki-news-tracker
+  cancel-in-progress: false
+
+jobs:
+  track:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    env:
+      NTFY_TOPIC: ${{ secrets.NTFY_TOPIC }}
+      NTFY_SERVER: ${{ secrets.NTFY_SERVER }}
+      NTFY_TOKEN: ${{ secrets.NTFY_TOKEN }}
+      TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+      TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+      DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
+      SMTP_HOST: ${{ secrets.SMTP_HOST }}
+      SMTP_PORT: ${{ secrets.SMTP_PORT }}
+      SMTP_USER: ${{ secrets.SMTP_USER }}
+      SMTP_PASSWORD: ${{ secrets.SMTP_PASSWORD }}
+      EMAIL_TO: ${{ secrets.EMAIL_TO }}
+      EMAIL_FROM: ${{ secrets.EMAIL_FROM }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Testnachricht senden
+        if: ${{ inputs.test }}
+        run: python3 ki_news_tracker.py --test
+
+      - name: Feeds prüfen und benachrichtigen
+        if: ${{ !inputs.test }}
+        run: python3 ki_news_tracker.py
+
+      - name: Stand speichern
+        if: ${{ !inputs.test }}
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/state.json NEWS.md
+          if git diff --cached --quiet; then
+            echo "Keine Änderungen."
+            exit 0
+          fi
+          git commit -m "KI-News aktualisiert"
+          git pull --rebase
+          git push
